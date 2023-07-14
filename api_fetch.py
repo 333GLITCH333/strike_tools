@@ -1,5 +1,6 @@
 #api_fetch.py
 import requests
+from requests.structures import CaseInsensitiveDict
 
 class APIFetcher:
     @staticmethod
@@ -19,19 +20,25 @@ class APIFetcher:
             "text": address,
             "apiKey": "YOUR_GEOAPIFY_API_KEY"
         }
-        resp = requests.get(url, headers=headers, params=params)
-        if resp.status_code == 200:
-            return resp.json()
-        else:
+        try:
+            resp = requests.get(url, headers=headers, params=params)
+            if resp.status_code == 200:
+                return resp.json()
+            else:
+                return None
+        except requests.RequestException:
             return None
 
     @staticmethod
     def fetch_ntas_alerts():
         url = "https://api.example.com/ntas/alerts"
-        resp = requests.get(url)
-        if resp.status_code == 200:
-            return resp.json()
-        else:
+        try:
+            resp = requests.get(url)
+            if resp.status_code == 200:
+                return resp.json()
+            else:
+                return None
+        except requests.RequestException:
             return None
 
     @staticmethod
@@ -42,10 +49,13 @@ class APIFetcher:
             "q": address,
             "aqi": "yes"
         }
-        resp = requests.get(url, params=params)
-        if resp.status_code == 200:
-            return resp.json()
-        else:
+        try:
+            resp = requests.get(url, params=params)
+            if resp.status_code == 200:
+                return resp.json()
+            else:
+                return None
+        except requests.RequestException:
             return None
 
     @staticmethod
@@ -56,10 +66,13 @@ class APIFetcher:
             "q": address,
             "dt": "Current"
         }
-        resp = requests.get(url, params=params)
-        if resp.status_code == 200:
-            return resp.json()
-        else:
+        try:
+            resp = requests.get(url, params=params)
+            if resp.status_code == 200:
+                return resp.json()
+            else:
+                return None
+        except requests.RequestException:
             return None
 
     @staticmethod
@@ -68,8 +81,11 @@ class APIFetcher:
         params = {
             "address": address
         }
-        resp = requests.get(url, params=params)
-        if resp.status_code == 200:
-            return resp.json()
-        else:
+        try:
+            resp = requests.get(url, params=params)
+            if resp.status_code == 200:
+                return resp.json()
+            else:
+                return None
+        except requests.RequestException:
             return None
