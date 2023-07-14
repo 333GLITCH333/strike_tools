@@ -6,7 +6,7 @@ from PyQt5.QtGui import QPixmap, QIcon, QFont
 import webbrowser
 from PyQt5.QtCore import Qt, QSize, QUrl
 from PyQt5.QtGui import QPixmap, QFont, QIcon
-from PyQt5.QtMultimedia import QSoundEffect  # Add the import statement for QSoundEffect
+from PyQt5.QtMultimedia import QSoundEffect
 from PyQt5.QtWidgets import QMainWindow, QVBoxLayout, QHBoxLayout, QMessageBox, QApplication, QWidget, QInputDialog, QLineEdit, QLabel, QPushButton
 
 from ui_components import LogoLabel, ImageLabel, CloseAppButton, NTASAlertsButton, ImageButton, AddressInput
@@ -117,6 +117,11 @@ class WeatherApp(QMainWindow):
                 lon = geocode_data["results"][0]["lon"]
                 lat = geocode_data["results"][0]["lat"]
                 self.lat_lon_output.setPlainText(f"Longitude: {lon}\nLatitude: {lat}")
+
+                # Copy latitude and longitude to clipboard
+                clipboard = QApplication.clipboard()
+                clipboard.setText(f"{lat}, {lon}")
+
             else:
                 QMessageBox.warning(self, "Error", "Geocode API request failed.")
 
@@ -201,7 +206,6 @@ class WeatherApp(QMainWindow):
         if confirm == QMessageBox.Yes:
             self.close()
 
-    # image fetch
     def fetch_image(self, url):
         response = requests.get(url)
         if response.status_code == 200:
