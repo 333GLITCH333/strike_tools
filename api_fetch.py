@@ -18,7 +18,7 @@ class APIFetcher:
         headers["Accept"] = "application/json"
         params = {
             "text": address,
-            "apiKey": "YOUR_GEOAPIFY_API_KEY"
+            "apiKey": "cffbc02463704e22ba33c259df8bcf75"
         }
         try:
             resp = requests.get(url, headers=headers, params=params)
@@ -45,7 +45,7 @@ class APIFetcher:
     def get_current_weather(address):
         url = "http://api.weatherapi.com/v1/current.json"
         params = {
-            "key": "YOUR_WEATHERAPI_API_KEY",
+            "key": "2e82b4c18182476895132928231106",
             "q": address,
             "aqi": "yes"
         }
@@ -62,7 +62,7 @@ class APIFetcher:
     def get_astronomy_data(address):
         url = "http://api.weatherapi.com/v1/astronomy.json"
         params = {
-            "key": "YOUR_WEATHERAPI_API_KEY",
+            "key": "2e82b4c18182476895132928231106",
             "q": address,
             "dt": "Current"
         }
@@ -89,3 +89,4 @@ class APIFetcher:
                 return None
         except requests.RequestException:
             return None
+            
