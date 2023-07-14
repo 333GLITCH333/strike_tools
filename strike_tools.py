@@ -6,7 +6,7 @@ from PyQt5.QtGui import QPixmap, QIcon, QFont#strike_tools.py
 import os
 import requests
 import webbrowser
-from PyQt5.QtCore import Qt, QSize, QUrl, QIcon
+from PyQt5.QtCore import Qt, QSize, QUrl
 from PyQt5.QtGui import QPixmap, QFont, QIcon
 from PyQt5.QtMultimedia import QSoundEffect  # Add the import statement for QSoundEffect
 from PyQt5.QtWidgets import QMainWindow, QVBoxLayout, QHBoxLayout, QMessageBox, QApplication, QWidget, QInputDialog, QLineEdit, QLabel, QPushButton
