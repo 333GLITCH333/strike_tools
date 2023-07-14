@@ -2,11 +2,13 @@
 import os
 import requests
 from PyQt5.QtCore import Qt, QSize, QUrl
-from PyQt5.QtGui import QPixmap, QIcon
-from PyQt5.QtWidgets import QMainWindow, QVBoxLayout, QPushButton, QLabel, QApplication, QHBoxLayout, QWidget, QMessageBox, QLineEdit, QInputDialog
+from PyQt5.QtGui import QPixmap, QIcon, QFont
+from PyQt5.QtWidgets import QMainWindow, QVBoxLayout, QPushButton, QLabel, QApplication, QWidget, QMessageBox, QLineEdit, QInputDialog, QHBoxLayout
 from PyQt5.QtMultimedia import QSoundEffect
 from requests.structures import CaseInsensitiveDict
 import webbrowser
+
+from ui_components import LogoLabel, ImageLabel, CloseAppButton, OutputLabel, NTASAlertsButton, ImageButton, AddressInput
 
 from api_fetch import APIFetcher
 
@@ -25,20 +27,22 @@ class WeatherApp(QMainWindow):
         self.close_button_sound.setSource(QUrl.fromLocalFile("0x66.wav"))
 
         self.startup_sound.play()  # Play startup sound
+        
+        self.close_app_sound = QSoundEffect()
 
         # Create the address input widget
-        self.address_input = QLineEdit()
+        self.address_input = AddressInput()
 
         # Set App
         self.setWindowTitle("Strike Tools")
         self.setGeometry(100, 100, 400, 300)
         layout = QVBoxLayout()
-        self.logo_label = QLabel()
+        self.logo_label = LogoLabel()
         script_dir = os.path.dirname(os.path.abspath(__file__))
         logo_path = os.path.join(script_dir, "logo.jpg")
         self.logo_label.setPixmap(QPixmap(logo_path))
         layout.addWidget(self.logo_label, alignment=Qt.AlignTop)
-        self.image_label = QLabel()
+        self.image_label = ImageLabel()
         layout.addWidget(self.image_label, alignment=Qt.AlignCenter)
         image_url = "https://tripcheck.com/RoadCams/cams/Yaquina%20Bay%20Bridge%20N_pid2778.JPG"
         image_data = self.fetch_image(image_url)
@@ -49,58 +53,53 @@ class WeatherApp(QMainWindow):
             self.image_label.setPixmap(scaled_pixmap)
 
         button_layout = QHBoxLayout()
-        self.geocode_button = QPushButton()
-        self.geocode_button.setIcon(QIcon("geocode.jpg"))
-        self.geocode_button.setIconSize(QSize(150, 150))
-        self.geocode_button.setStyleSheet("padding: 0px; margin-bottom: 10px;")
+        self.geocode_button = ImageButton("geocode.jpg")
         self.geocode_button.clicked.connect(self.handle_geocode_button_click)
         geocode_label = QLabel("Geocode")
         button_layout.addWidget(geocode_label, alignment=Qt.AlignCenter)
         button_layout.addWidget(self.geocode_button, alignment=Qt.AlignCenter)
+        self.geocode_button.setFont(QFont("", -1, QFont.Bold))  # Set font to bold
 
-        self.maps_button = QPushButton()
-        self.maps_button.setIcon(QIcon("maps.jpg"))
-        self.maps_button.setIconSize(QSize(150, 150))
-        self.maps_button.setStyleSheet("padding: 0px; margin-bottom: 10px;")
+        self.maps_button = ImageButton("maps.jpg")
+
         self.maps_button.clicked.connect(self.handle_maps_button_click)
         maps_label = QLabel("Maps")
         button_layout.addWidget(maps_label, alignment=Qt.AlignCenter)
         button_layout.addWidget(self.maps_button, alignment=Qt.AlignCenter)
-        self.deals_button = QPushButton()
-        self.deals_button.setIcon(QIcon("deals.jpg"))
-        self.deals_button.setIconSize(QSize(150, 150))
-        self.deals_button.setStyleSheet("padding: 0px; margin-bottom: 10px;")
+        self.maps_button.setFont(QFont("", -1, QFont.Bold))  # Set font to bold
+
+        self.deals_button = ImageButton("deals.jpg")
         self.deals_button.clicked.connect(self.handle_deals_button_click)
         deals_label = QLabel("Deals")
         button_layout.addWidget(deals_label, alignment=Qt.AlignCenter)
         button_layout.addWidget(self.deals_button, alignment=Qt.AlignCenter)
+        self.deals_button.setFont(QFont("", -1, QFont.Bold))  # Set font to bold
 
         layout.addLayout(button_layout)
-        self.ntas_alerts_button = QPushButton("NTAS Alerts")
+        self.ntas_alerts_button = NTASAlertsButton()
+        self.ntas_alerts_button.setText("NTAS Alerts")
         self.ntas_alerts_button.clicked.connect(self.handle_ntas_alerts_button_click)
-        self.ntas_alerts_button.setStyleSheet("font-weight: bold; font-size: 40px; padding: 30px;")
+        self.ntas_alerts_button.setFont(QFont("", -1, QFont.Bold))  # Set font to bold
         layout.addWidget(self.ntas_alerts_button)
+
         self.current_weather_button = QPushButton("Local Weather")
         self.current_weather_button.clicked.connect(self.handle_current_weather_button_click)
-        self.current_weather_button.setStyleSheet("font-weight: bold; font-size: 40px; padding: 30px;")
+        self.current_weather_button.setFont(QFont("", -1, QFont.Bold))  # Set font to bold
         layout.addWidget(self.current_weather_button)
 
         self.astro_data_button = QPushButton("Local Astro Data")
         self.astro_data_button.clicked.connect(self.handle_astro_data_button_click)
-        self.astro_data_button.setStyleSheet("font-weight: bold; font-size: 40px; padding: 30px;")
+        self.astro_data_button.setFont(QFont("", -1, QFont.Bold))  # Set font to bold
         layout.addWidget(self.astro_data_button)
 
         self.tidal_data_button = QPushButton("Local Tidal Data")
         self.tidal_data_button.clicked.connect(self.handle_tidal_data_button_click)
-        self.tidal_data_button.setStyleSheet("font-weight: bold; font-size: 40px; padding: 30px;")
+        self.tidal_data_button.setFont(QFont("", -1, QFont.Bold))  # Set font to bold
         layout.addWidget(self.tidal_data_button)
-        self.close_app_button = QPushButton("CLOSE APP")
-        self.close_app_button.setStyleSheet(
-            "background-color: red; color: white; font-weight: bold; font-size: 50px;padding: 45px;"
-        )
+
+        self.close_app_button = CloseAppButton()
         self.close_app_button.clicked.connect(self.close_app)
-        self.close_app_sound = QSoundEffect()
-        self.close_app_sound.setSource(QUrl.fromLocalFile("close_app.wav"))
+        self.close_app_button.setFont(QFont("", -1, QFont.Bold))  # Set font to bold
         layout.addWidget(self.close_app_button, alignment=Qt.AlignBottom)
 
         central_widget = QWidget()
@@ -125,6 +124,7 @@ class WeatherApp(QMainWindow):
                 QMessageBox.warning(self, "Error", "Geocode API request failed.")
 
     def handle_maps_button_click(self):
+
         address = self.address_input.text()
 
         # Validate if address is provided
