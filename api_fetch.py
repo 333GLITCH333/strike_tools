@@ -2,7 +2,6 @@
 import requests
 from requests.structures import CaseInsensitiveDict
 
-
 class APIFetcher:
     @staticmethod
     def fetch_image(url):
@@ -29,12 +28,12 @@ class APIFetcher:
     @staticmethod
     def fetch_geocode(address):
         url = "https://api.geoapify.com/v1/geocode/search"
-        headers = CaseInsensitiveDict({"Accept": "application/json"})
         params = {
             "text": address,
-            "apiKey": "cffbc02463704e22ba33c259df8bcf75"
+            "format": "json",
+            "apiKey": "YOUR_API_KEY"  # Replace with your actual API key
         }
-        return APIFetcher.fetch_data(url, headers, params)
+        return APIFetcher.fetch_data(url, params=params)
 
     @staticmethod
     def fetch_ntas_alerts():
