@@ -1,8 +1,7 @@
 #ui_components.py
 from PyQt5.QtCore import Qt, QSize
 from PyQt5.QtGui import QIcon
-from PyQt5.QtWidgets import QPushButton, QLabel, QLineEdit
-
+from PyQt5.QtWidgets import QPushButton, QLabel, QLineEdit, QApplication
 
 class AddressInput(QLineEdit):
     pass
