@@ -54,4 +54,16 @@ class APIFetcher:
     def get_astronomy_data(address):
         url = "http://api.weatherapi.com/v1/astronomy.json"
         params = {
-            "key": "2e82b4c
+            "key": "2e82b4c18182476895132928231106",
+            "q": address,
+            "dt": "Current"
+        }
+        return APIFetcher.fetch_data(url, params=params)
+
+    @staticmethod
+    def get_tidal_data(address):
+        url = "https://api.example.com/tidal"
+        params = {
+            "address": address
+        }
+        return APIFetcher.fetch_data(url, params=params)
