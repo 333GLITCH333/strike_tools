@@ -2,9 +2,7 @@
 import os
 import requests
 from PyQt5.QtCore import Qt, QSize, QUrl
-from PyQt5.QtGui import QPixmap, QIcon, QFont#strike_tools.py
-import os
-import requests
+from PyQt5.QtGui import QPixmap, QIcon, QFont
 import webbrowser
 from PyQt5.QtCore import Qt, QSize, QUrl
 from PyQt5.QtGui import QPixmap, QFont, QIcon
@@ -39,36 +37,6 @@ class WeatherApp(QMainWindow):
         self.logo_label = QLabel()
         script_dir = os.path.dirname(os.path.abspath(__file__))
 
-from PyQt5.QtWidgets import QMainWindow, QVBoxLayout, QPushButton, QLabel, QApplication, QWidget, QMessageBox, QLineEdit, QInputDialog, QHBoxLayout
-from PyQt5.QtMultimedia import QSound
-from requests.structures import CaseInsensitiveDict
-import webbrowser
-
-from ui_components import LogoLabel, ImageLabel, CloseAppButton, OutputLabel, NTASAlertsButton, ImageButton, AddressInput
-
-from api_fetch import APIFetcher
-
-class WeatherApp(QMainWindow):
-    def __init__(self):
-        super().__init__()
-
-        # Sound effects
-        self.startup_sound = QSound("startup_sound.wav")
-        self.button_sound = QSound("0x15.wav")
-        self.close_button_sound = QSound("0x66.wav")
-        self.close_app_sound = QSound("close_app_sound.wav")
-
-        self.startup_sound.play()  # Play startup sound
-
-        # Create the address input widget
-        self.address_input = AddressInput()
-
-        # Set App
-        self.setWindowTitle("Strike Tools")
-        self.setGeometry(100, 100, 400, 300)
-        layout = QVBoxLayout()
-        self.logo_label = LogoLabel()
-        script_dir = os.path.dirname(os.path.abspath(__file__))
         logo_path = os.path.join(script_dir, "logo.jpg")
         self.logo_label.setPixmap(QPixmap(logo_path))
         layout.addWidget(self.logo_label, alignment=Qt.AlignTop)
