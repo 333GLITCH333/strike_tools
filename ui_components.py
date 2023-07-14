@@ -1,11 +1,12 @@
 #ui_components.py
 from PyQt5.QtCore import Qt, QSize
-from PyQt5.QtGui import QPixmap, QIcon
-from PyQt5.QtWidgets import QVBoxLayout, QPushButton, QLabel, QHBoxLayout, QLineEdit
+from PyQt5.QtGui import QIcon
+from PyQt5.QtWidgets import QPushButton, QLabel, QLineEdit
+
 
 class AddressInput(QLineEdit):
-    def __init__(self):
-        super().__init__()
+    pass
+
 
 class ImageButton(QPushButton):
     def __init__(self, icon_path):
@@ -14,13 +15,14 @@ class ImageButton(QPushButton):
         self.setIconSize(QSize(150, 150))
         self.setStyleSheet("padding: 0px; margin-bottom: 10px;")
 
+
 class NTASAlertsButton(QPushButton):
-    def __init__(self):
-        super().__init__()
+    pass
+
 
 class OutputLabel(QLabel):
-    def __init__(self):
-        super().__init__()
+    pass
+
 
 class CloseAppButton(QPushButton):
     def __init__(self):
@@ -30,10 +32,10 @@ class CloseAppButton(QPushButton):
             "background-color: red; color: white; font-weight: bold; font-size: 50px;padding: 45px;"
         )
 
+
 class LogoLabel(QLabel):
-    def __init__(self):
-        super().__init__()
+    pass
+
 
 class ImageLabel(QLabel):
-    def __init__(self):
-        super().__init__()
+    pass
