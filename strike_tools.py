@@ -61,7 +61,7 @@ class WeatherApp(QMainWindow):
         self.image_label = ImageLabel()
         layout.addWidget(self.image_label, alignment=Qt.AlignCenter)
         image_url = "https://tripcheck.com/RoadCams/cams/Yaquina%20Bay%20Bridge%20N_pid2778.JPG"
-        image_data = self.fetch_image(image_url)
+        image_data = APIFetcher.fetch_image(image_url)
         if image_data:
             pixmap = QPixmap()
             pixmap.loadFromData(image_data)
@@ -122,27 +122,27 @@ class WeatherApp(QMainWindow):
         self.setCentralWidget(central_widget)
 
     def handle_geocode_button_click(self):
-    address, ok = QInputDialog.getText(self, "Enter Address", "Address:", QLineEdit.Normal, "")
+        address, ok = QInputDialog.getText(self, "Enter Address", "Address:", QLineEdit.Normal, "")
 
-    # Check if the user pressed OK and provided an address
-    if ok:
-        if not address:
-            QMessageBox.warning(self, "Error", "Please enter an address.")
-            return
+        # Check if the user pressed OK and provided an address
+        if ok:
+            if not address:
+                QMessageBox.warning(self, "Error", "Please enter an address.")
+                return
 
-        geocode_data = APIFetcher.fetch_geocode(address)
-        if geocode_data and "results" in geocode_data and len(geocode_data["results"]) > 0:
-            location = geocode_data["results"][0]
-            lon = location["bbox"]["lon1"]
-            lat = location["bbox"]["lat1"]
-            self.lat_lon_output.setPlainText(f"Longitude: {lon}\nLatitude: {lat}")
+            geocode_data = APIFetcher.fetch_geocode(address)
+            if geocode_data and "results" in geocode_data and len(geocode_data["results"]) > 0:
+                location = geocode_data["results"][0]
+                lon = location["bbox"]["lon1"]
+                lat = location["bbox"]["lat1"]
+                self.lat_lon_output.setPlainText(f"Longitude: {lon}\nLatitude: {lat}")
 
-            # Copy latitude and longitude to clipboard
-            clipboard = QApplication.clipboard()
-            clipboard.setText(f"{lat}, {lon}")
+                # Copy latitude and longitude to clipboard
+                clipboard = QApplication.clipboard()
+                clipboard.setText(f"{lat}, {lon}")
 
-        else:
-            QMessageBox.warning(self, "Error", "Geocode API request failed.")
+            else:
+                QMessageBox.warning(self, "Error", "Geocode API request failed.")
 
     def handle_maps_button_click(self):
         address = self.address_input.text()
