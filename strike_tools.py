@@ -5,6 +5,8 @@ from PyQt5.QtCore import Qt, QSize, QUrl
 from PyQt5.QtGui import QPixmap, QFont
 from PyQt5.QtWidgets import QMainWindow, QVBoxLayout, QHBoxLayout, QMessageBox, QApplication, QWidget, QInputDialog
 
+from PyQt5.QtMultimedia import QSoundEffect
+
 from ui_components import LogoLabel, ImageLabel, CloseAppButton, NTASAlertsButton, ImageButton, AddressInput
 from api_fetch import APIFetcher
 
