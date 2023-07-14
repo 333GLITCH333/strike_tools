@@ -4,12 +4,30 @@ import requests
 from PyQt5.QtCore import Qt, QSize, QUrl
 from PyQt5.QtGui import QPixmap, QIcon, QFont
 import webbrowser
-from PyQt5.QtCore import Qt, QSize, QUrl
-from PyQt5.QtGui import QPixmap, QFont, QIcon
+from PyQt5.QtCore import Qt
+from PyQt5.QtGui import QFont, QIcon
 from PyQt5.QtMultimedia import QSoundEffect
-from PyQt5.QtWidgets import QMainWindow, QVBoxLayout, QHBoxLayout, QMessageBox, QApplication, QWidget, QInputDialog, QLineEdit, QLabel, QPushButton
+from PyQt5.QtWidgets import (
+    QMainWindow,
+    QVBoxLayout,
+    QHBoxLayout,
+    QMessageBox,
+    QApplication,
+    QWidget,
+    QInputDialog,
+    QLineEdit,
+    QLabel,
+    QPushButton,
+)
 
-from ui_components import LogoLabel, ImageLabel, CloseAppButton, NTASAlertsButton, ImageButton, AddressInput
+from ui_components import (
+    LogoLabel,
+    ImageLabel,
+    CloseAppButton,
+    NTASAlertsButton,
+    ImageButton,
+    AddressInput,
+)
 from api_fetch import APIFetcher
 
 class WeatherApp(QMainWindow):
