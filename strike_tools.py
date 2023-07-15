@@ -1,8 +1,9 @@
-#strike_tools.py
+# strike_tools.py
+
 import os
 import webbrowser
 from PyQt5.QtCore import Qt, QUrl
-from PyQt5.QtGui import QPixmap, QIcon, QFont
+from PyQt5.QtGui import QPixmap, QFont
 from PyQt5.QtMultimedia import QSoundEffect
 from PyQt5.QtWidgets import (
     QMainWindow,
@@ -49,7 +50,7 @@ class WeatherApp(QMainWindow):
         self.setWindowTitle("Strike Tools")
         self.setGeometry(100, 100, 400, 300)
         layout = QVBoxLayout()
-        self.logo_label = QLabel()
+        self.logo_label = LogoLabel()
         script_dir = os.path.dirname(os.path.abspath(__file__))
 
         logo_path = os.path.join(script_dir, "logo.jpg")
