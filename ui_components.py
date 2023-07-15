@@ -1,7 +1,7 @@
-#ui_components.py
+#ui_componentd.py
 from PyQt5.QtCore import Qt, QSize
 from PyQt5.QtGui import QIcon
-from PyQt5.QtWidgets import QPushButton, QLabel, QLineEdit, QApplication
+from PyQt5.QtWidgets import QPushButton, QLabel, QLineEdit
 
 class AddressInput(QLineEdit):
     pass
@@ -38,3 +38,4 @@ class LogoLabel(QLabel):
 
 class ImageLabel(QLabel):
     pass
+    
