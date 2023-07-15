@@ -1,11 +1,8 @@
 #strike_tools.py
 import os
-import requests
-from PyQt5.QtCore import Qt, QSize, QUrl
-from PyQt5.QtGui import QPixmap, QIcon, QFont
 import webbrowser
-from PyQt5.QtCore import Qt
-from PyQt5.QtGui import QFont, QIcon
+from PyQt5.QtCore import Qt, QUrl
+from PyQt5.QtGui import QPixmap, QIcon, QFont
 from PyQt5.QtMultimedia import QSoundEffect
 from PyQt5.QtWidgets import (
     QMainWindow,
@@ -19,7 +16,7 @@ from PyQt5.QtWidgets import (
     QLabel,
     QPushButton,
 )
-
+from api_fetch import APIFetcher
 from ui_components import (
     LogoLabel,
     ImageLabel,
@@ -28,7 +25,6 @@ from ui_components import (
     ImageButton,
     AddressInput,
 )
-from api_fetch import APIFetcher
 
 class WeatherApp(QMainWindow):
     def __init__(self):
@@ -237,3 +233,4 @@ if __name__ == "__main__":
     weather_app = WeatherApp()
     weather_app.show()
     app.exec_()
+        
