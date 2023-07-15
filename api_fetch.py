@@ -1,6 +1,5 @@
 #api_fetch.py
 import requests
-from requests.structures import CaseInsensitiveDict
 
 class APIFetcher:
     @staticmethod
@@ -66,3 +65,4 @@ class APIFetcher:
             "address": address
         }
         return APIFetcher.fetch_data(url, params=params)
+        
