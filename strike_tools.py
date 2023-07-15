@@ -15,7 +15,10 @@ from PyQt5.QtWidgets import (
     QLineEdit,
     QLabel,
     QPushButton,
+    QDialog,
+    QDialogButtonBox,
 )
+
 from api_fetch import APIFetcher
 from ui_components import (
     LogoLabel,
@@ -42,8 +45,6 @@ class WeatherApp(QMainWindow):
         self.startup_sound.play()
 
         self.close_app_sound = QSoundEffect()
-
-        self.address_input = QLineEdit()
 
         self.setWindowTitle("Strike Tools")
         self.setGeometry(100, 100, 400, 300)
@@ -127,10 +128,28 @@ class WeatherApp(QMainWindow):
         self.setCentralWidget(central_widget)
 
     def handle_geocode_button_click(self):
-        address, ok = QInputDialog.getText(self, "Enter Address", "Address:", QLineEdit.Normal, "")
+        dialog = QDialog(self)
+        dialog.setWindowTitle("Enter Address")
 
-        # Check if the user pressed OK and provided an address
-        if ok:
+        layout = QVBoxLayout(dialog)
+
+        label = QLabel("ENTER STREET ADDRESS FOR COORDINATES:")
+        font = QFont()
+        font.setBold(True)
+        label.setFont(font)  # Apply bold font to the label
+        layout.addWidget(label)
+
+        self.address_input = AddressInput()
+        self.address_input.setFixedWidth(800)  # Set the desired width of the input box
+        layout.addWidget(self.address_input)
+
+        button_box = QDialogButtonBox(QDialogButtonBox.Ok | QDialogButtonBox.Cancel)
+        button_box.accepted.connect(dialog.accept)
+        button_box.rejected.connect(dialog.reject)
+        layout.addWidget(button_box)
+
+        if dialog.exec_() == QDialog.Accepted:
+            address = self.address_input.text()
             if not address:
                 QMessageBox.warning(self, "Error", "Please enter an address.")
                 return
@@ -231,13 +250,6 @@ class WeatherApp(QMainWindow):
 
         if confirm == QMessageBox.Yes:
             self.close()
-
-    def fetch_image(self, url):
-        response = requests.get(url)
-        if response.status_code == 200:
-            return response.content
-        else:
-            return None
 
 if __name__ == "__main__":
     app = QApplication([])
