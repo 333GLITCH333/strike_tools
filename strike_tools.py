@@ -54,6 +54,7 @@ class WeatherApp(QMainWindow):
         logo_path = os.path.join(script_dir, "logo.jpg")
         self.logo_label.setPixmap(QPixmap(logo_path))
         layout.addWidget(self.logo_label, alignment=Qt.AlignTop)
+
         self.image_label = ImageLabel()
         layout.addWidget(self.image_label, alignment=Qt.AlignCenter)
         image_url = "https://tripcheck.com/RoadCams/cams/Yaquina%20Bay%20Bridge%20N_pid2778.JPG"
@@ -64,53 +65,61 @@ class WeatherApp(QMainWindow):
             scaled_pixmap = pixmap.scaledToWidth(1000)
             self.image_label.setPixmap(scaled_pixmap)
 
+        button_font = QFont()
+        button_font.setPointSize(16)
+        button_font.setBold(True)  # Set the font style to bold
+
         button_layout = QHBoxLayout()
         self.geocode_button = ImageButton("geocode.jpg")
         self.geocode_button.clicked.connect(self.handle_geocode_button_click)
         geocode_label = QLabel("Geocode")
+        geocode_label.setFont(button_font)  # Apply the bold font to the label
         button_layout.addWidget(geocode_label, alignment=Qt.AlignCenter)
         button_layout.addWidget(self.geocode_button, alignment=Qt.AlignCenter)
-        self.geocode_button.setFont(QFont("", -1, QFont.Bold))  # Set font to bold
+
+        self.geocode_button.setFont(button_font)  # Apply the bold font to the button
 
         self.maps_button = ImageButton("maps.jpg")
         self.maps_button.clicked.connect(self.handle_maps_button_click)
         maps_label = QLabel("Maps")
+        maps_label.setFont(button_font)  # Apply the bold font to the label
         button_layout.addWidget(maps_label, alignment=Qt.AlignCenter)
         button_layout.addWidget(self.maps_button, alignment=Qt.AlignCenter)
-        self.maps_button.setFont(QFont("", -1, QFont.Bold))  # Set font to bold
+        self.maps_button.setFont(button_font)  # Apply the bold font to the button
 
         self.deals_button = ImageButton("deals.jpg")
         self.deals_button.clicked.connect(self.handle_deals_button_click)
         deals_label = QLabel("Deals")
+        deals_label.setFont(button_font)  # Apply the bold font to the label
         button_layout.addWidget(deals_label, alignment=Qt.AlignCenter)
         button_layout.addWidget(self.deals_button, alignment=Qt.AlignCenter)
-        self.deals_button.setFont(QFont("", -1, QFont.Bold))  # Set font to bold
+        self.deals_button.setFont(button_font)  # Apply the bold font to the button
 
         layout.addLayout(button_layout)
         self.ntas_alerts_button = NTASAlertsButton()
         self.ntas_alerts_button.setText("NTAS Alerts")
         self.ntas_alerts_button.clicked.connect(self.handle_ntas_alerts_button_click)
-        self.ntas_alerts_button.setFont(QFont("", -1, QFont.Bold))  # Set font to bold
+        self.ntas_alerts_button.setFont(button_font)  # Apply the bold font to the button
         layout.addWidget(self.ntas_alerts_button)
 
         self.current_weather_button = QPushButton("Local Weather")
         self.current_weather_button.clicked.connect(self.handle_current_weather_button_click)
-        self.current_weather_button.setFont(QFont("", -1, QFont.Bold))  # Set font to bold
+        self.current_weather_button.setFont(button_font)  # Apply the bold font to the button
         layout.addWidget(self.current_weather_button)
 
         self.astro_data_button = QPushButton("Local Astro Data")
         self.astro_data_button.clicked.connect(self.handle_astro_data_button_click)
-        self.astro_data_button.setFont(QFont("", -1, QFont.Bold))  # Set font to bold
+        self.astro_data_button.setFont(button_font)  # Apply the bold font to the button
         layout.addWidget(self.astro_data_button)
 
         self.tidal_data_button = QPushButton("Local Tidal Data")
         self.tidal_data_button.clicked.connect(self.handle_tidal_data_button_click)
-        self.tidal_data_button.setFont(QFont("", -1, QFont.Bold))  # Set font to bold
+        self.tidal_data_button.setFont(button_font)  # Apply the bold font to the button
         layout.addWidget(self.tidal_data_button)
 
         self.close_app_button = CloseAppButton()
         self.close_app_button.clicked.connect(self.close_app)
-        self.close_app_button.setFont(QFont("", -1, QFont.Bold))  # Set font to bold
+        self.close_app_button.setFont(button_font)  # Apply the bold font to the button
         layout.addWidget(self.close_app_button, alignment=Qt.AlignBottom)
 
         central_widget = QWidget()
@@ -127,6 +136,7 @@ class WeatherApp(QMainWindow):
                 return
 
             geocode_data = APIFetcher.fetch_geocode(address)
+
             if geocode_data and "results" in geocode_data and len(geocode_data["results"]) > 0:
                 location = geocode_data["results"][0]
                 lon = location["bbox"]["lon1"]
@@ -218,6 +228,7 @@ class WeatherApp(QMainWindow):
         confirm = QMessageBox.question(
             self, "Confirmation", "Are you sure you want to close the app?", QMessageBox.Yes | QMessageBox.No
         )
+
         if confirm == QMessageBox.Yes:
             self.close()
 
