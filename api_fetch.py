@@ -65,4 +65,4 @@ class APIFetcher:
             "address": address
         }
         return APIFetcher.fetch_data(url, params=params)
-        
+
